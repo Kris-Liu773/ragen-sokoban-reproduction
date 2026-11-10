@@ -1,0 +1,412 @@
+data:
+  tokenizer: null
+  train_files: ~/data/rlhf/gsm8k/train.parquet
+  val_files: ~/data/rlhf/gsm8k/test.parquet
+  prompt_key: prompt
+  max_prompt_length: null
+  max_response_length: null
+  train_batch_size: 128
+  val_batch_size: null
+  return_raw_input_ids: false
+  return_raw_chat: false
+  shuffle: true
+  filter_overlong_prompts: false
+  truncation: error
+  image_key: images
+actor_rollout_ref:
+  hybrid_engine: true
+  model:
+    path: __MODEL_PATH__
+    external_lib: null
+    override_config: {}
+    enable_gradient_checkpointing: true
+    use_remove_padding: false
+  actor:
+    strategy: fsdp
+    ppo_mini_batch_size: 32
+    ppo_micro_batch_size: null
+    ppo_micro_batch_size_per_gpu: 4
+    use_dynamic_bsz: false
+    ppo_max_token_len_per_gpu: 16384
+    grad_clip: 1.0
+    clip_ratio: 0.2
+    entropy_coeff: 0.001
+    use_kl_loss: false
+    use_torch_compile: false
+    kl_loss_coef: 0.0
+    kl_loss_type: kl
+    ppo_epochs: 1
+    shuffle: false
+    ulysses_sequence_parallel_size: 1
+    checkpoint:
+      contents:
+      - model
+      - hf_model
+      - optimizer
+      - extra
+    optim:
+      lr: 1.0e-06
+      lr_warmup_steps: -1
+      lr_warmup_steps_ratio: 0.0
+      min_lr_ratio: null
+      warmup_style: constant
+      total_training_steps: 200
+      betas:
+      - 0.9
+      - 0.999
+    fsdp_config:
+      wrap_policy:
+        min_num_params: 0
+      param_offload: false
+      optimizer_offload: false
+      fsdp_size: -1
+    micro_batch_size_per_gpu: 4
+    use_ref: true
+    clip_ratio_low: 0.2
+    clip_ratio_high: 0.28
+    grpo_advantage_length_weight: false
+    lora:
+      enabled: false
+      rank: 64
+      alpha: 64
+      target_modules: all-linear
+      local_temp_dir: lora_temp
+  ref:
+    fsdp_config:
+      param_offload: false
+      wrap_policy:
+        min_num_params: 0
+    log_prob_micro_batch_size: null
+    log_prob_micro_batch_size_per_gpu: 4
+    log_prob_use_dynamic_bsz: false
+    log_prob_max_token_len_per_gpu: 16384
+    ulysses_sequence_parallel_size: 1
+  rollout:
+    name: vllm
+    temperature: 1
+    top_k: -1
+    top_p: 1
+    use_fire_sampling: false
+    prompt_length: 1
+    response_length: 400
+    dtype: bfloat16
+    gpu_memory_utilization: 0.35
+    ignore_eos: false
+    enforce_eager: false
+    free_cache_engine: false
+    load_format: dummy_dtensor
+    tensor_model_parallel_size: 1
+    max_num_batched_tokens: 8192
+    max_model_len: 3600
+    max_num_seqs: 1024
+    log_prob_micro_batch_size: null
+    log_prob_micro_batch_size_per_gpu: 4
+    log_prob_use_dynamic_bsz: false
+    log_prob_max_token_len_per_gpu: 16384
+    disable_log_stats: true
+    enable_chunked_prefill: true
+    do_sample: true
+    n: 1
+    val_kwargs:
+      top_k: -1
+      top_p: 1.0
+      temperature: 0.5
+      n: 1
+      do_sample: true
+    rollout_filter_ratio: 0.25
+    rollout_filter_type: random
+    lora:
+      enabled: false
+      rank: 64
+      alpha: 64
+      target_modules: all-linear
+      local_temp_dir: lora_temp
+critic:
+  strategy: fsdp
+  optim:
+    lr: 1.0e-05
+    lr_warmup_steps_ratio: 0.0
+    min_lr_ratio: null
+    warmup_style: constant
+    total_training_steps: 200
+    betas:
+    - 0.9
+    - 0.999
+  model:
+    path: __MODEL_PATH__
+    tokenizer_path: __MODEL_PATH__
+    override_config: {}
+    external_lib: null
+    enable_gradient_checkpointing: true
+    use_remove_padding: false
+    fsdp_config:
+      param_offload: false
+      optimizer_offload: false
+      wrap_policy:
+        min_num_params: 0
+      fsdp_size: -1
+  ppo_mini_batch_size: 32
+  ppo_micro_batch_size: null
+  ppo_micro_batch_size_per_gpu: 4
+  forward_micro_batch_size: null
+  forward_micro_batch_size_per_gpu: 4
+  use_dynamic_bsz: false
+  ppo_max_token_len_per_gpu: 32768
+  forward_max_token_len_per_gpu: 32768
+  ulysses_sequence_parallel_size: 1
+  ppo_epochs: 1
+  shuffle: false
+  grad_clip: 1.0
+  cliprange_value: 0.5
+  checkpoint:
+    contents:
+    - model
+    - hf_model
+    - optimizer
+    - extra
+  lora:
+    enabled: false
+    rank: 64
+    alpha: 64
+    target_modules: all-linear
+reward_model:
+  enable: false
+  strategy: fsdp
+  model:
+    input_tokenizer: __MODEL_PATH__
+    path: ~/models/FsfairX-LLaMA3-RM-v0.1
+    external_lib: null
+    use_remove_padding: false
+    fsdp_config:
+      wrap_policy:
+        min_num_params: 0
+      param_offload: false
+      fsdp_size: -1
+  micro_batch_size: null
+  micro_batch_size_per_gpu: null
+  max_length: null
+  ulysses_sequence_parallel_size: 1
+  use_dynamic_bsz: false
+  forward_max_token_len_per_gpu: 32768
+  reward_manager: naive
+custom_reward_function:
+  path: null
+  name: compute_score
+algorithm:
+  gamma: 1.0
+  lam: 1.0
+  adv_estimator: gae
+  kl_penalty: kl
+  kl_ctrl:
+    type: fixed
+    kl_coef: 0.0
+trainer:
+  balance_batch: true
+  total_epochs: 30
+  total_training_steps: 200
+  project_name: ragen_v1_quest_followup
+  experiment_name: random_seed43
+  logger:
+  - console
+  val_generations_to_log_to_wandb: 0
+  nnodes: 1
+  n_gpus_per_node: 1
+  save_freq: 20
+  resume_mode: disable
+  resume_from_path: null
+  test_freq: 10
+  critic_warmup: 0
+  default_hdfs_dir: null
+  del_local_ckpt_after_load: false
+  default_local_dir: __OUTPUT_DIR__/checkpoints
+  max_actor_ckpt_to_keep: 2
+  max_critic_ckpt_to_keep: 2
+  validation_steps: 1
+  val_before_train: true
+  generations_to_log_to_wandb:
+    train: 128
+    val: 0
+  val_only: false
+custom_envs:
+  SimpleSokoban:
+    env_type: sokoban
+    max_actions_per_traj: 10
+    env_instruction: You are solving the Sokoban puzzle. You are the player and you
+      need to push all boxes to targets. When you are right next to a box, you can
+      push it by moving in the same direction. You cannot push a box through a wall,
+      and you cannot pull a box. The answer should be a sequence of actions, like
+      <answer>Right || Right || Up</answer>
+    max_tokens: 100
+    env_config:
+      dim_x: 6
+      dim_y: 6
+      num_boxes: 1
+      max_steps: 100
+  LargerSokoban:
+    env_type: sokoban
+    max_actions_per_traj: 10
+    env_instruction: You are solving the Sokoban puzzle. You are the player and you
+      need to push all boxes to targets. When you are right next to a box, you can
+      push it by moving in the same direction. You cannot push a box through a wall,
+      and you cannot pull a box. The answer should be a sequence of actions, like
+      <answer>Right || Right || Up</answer>
+    max_tokens: 100
+    env_config:
+      dim_x: 8
+      dim_y: 8
+      num_boxes: 2
+      max_steps: 100
+      search_depth: 10
+  SokobanDifferentGridVocab:
+    env_type: sokoban
+    max_actions_per_traj: 10
+    env_instruction: You are solving the Sokoban puzzle. You are the player and you
+      need to push all boxes to targets. When you are right next to a box, you can
+      push it by moving in the same direction. You cannot push a box through a wall,
+      and you cannot pull a box. The answer should be a sequence of actions, like
+      <answer>Right || Right || Up</answer>
+    max_tokens: 100
+    env_config:
+      search_depth: 30
+      dim_x: 6
+      dim_y: 6
+      num_boxes: 1
+      max_steps: 100
+      grid_lookup:
+        0: W
+        1: .
+        2: G
+        3: C
+        4: B
+        5: A
+        6: '@'
+      grid_vocab:
+        W: wall
+        .: empty
+        G: target
+        C: box on target
+        B: box
+        A: player
+        '@': player on target
+  VisualSimpleSokoban:
+    env_type: sokoban
+    max_actions_per_traj: 10
+    env_instruction: You are solving the Sokoban puzzle. You are the player and you
+      need to push all boxes to targets. When you are right next to a box, you can
+      push it by moving in the same direction. You cannot push a box through a wall,
+      and you cannot pull a box. The answer should be a sequence of actions, like
+      <answer>Right || Right || Up</answer>
+    max_tokens: 100
+    env_config:
+      dim_x: 6
+      dim_y: 6
+      num_boxes: 1
+      max_steps: 100
+      render_mode: rgb_array
+  Countdown:
+    env_type: countdown
+    max_actions_per_traj: 1
+    env_instruction: 'You are solving the Countdown puzzle. You should use the num
+      list to create an equation that equals the target. Example answer format: <think>
+      To find an equation using [3, 5, 2] to get 4. Let''s check 2 + 5 = 7, 7 - 3
+      = 4. So the answer is 2 + 5 - 3 = 4. </think><answer>2 + 5 - 3</answer>'
+    max_tokens: 100
+    env_config: null
+  Bandit:
+    env_type: bandit
+    max_actions_per_traj: 1
+    env_instruction: ''
+    max_tokens: 100
+    env_config:
+      lo_arm_name: Phoenix
+      hi_arm_name: Dragon
+  BanditTest:
+    env_type: bandit
+    max_actions_per_traj: 1
+    env_instruction: ''
+    max_tokens: 100
+    env_config:
+      lo_arm_name: Trader
+      hi_arm_name: Librarian
+  FrozenLake:
+    env_type: frozen_lake
+    max_actions_per_traj: 10
+    env_instruction: 'You are solving the FrozenLake puzzle. Forbid the whole and
+      go to the target. You may move to the unintended direction due to the slippery
+      ice. Example answer format: <think>To forbid the hole and go to the target,
+      I should go left then go up.</think><answer>Left || Up</answer>'
+    max_tokens: 100
+    env_config: null
+  MetamathQA:
+    env_type: metamathqa
+    max_actions_per_traj: 1
+    env_instruction: 'You are solving Math problems. '
+    max_tokens: 100
+    env_config: null
+  WebShop:
+    env_type: webshop
+    max_actions_per_traj: 30
+    env_instruction: 'You are browsing an online shop. Based on the instruction, find
+      the product that matches the production description. You need to iteratively
+      take action, read the website and decide what action to take next until finding
+      the product. Available actions depends on the page: in the search page you can
+      search keywords, in the search result page you can click an item url or click[next
+      >] to navigate to next page, in the product page you can click[description]
+      or click[features] to see the details, click[blue] or click[x-large] to choose
+      size and colors, click[buy now] when you decided to buy the product, click[back
+      to search] to return to search page. Example process: I need a gingko light
+      and 20x20 pillow cover that is hand painted. First search[gingko light 20x20
+      pillow cover hand painted], answer format: <answer>search[blanket with fleece
+      throw]</answer>. Valid answer is search[<keywords>] or click[<clickable>].'
+    max_tokens: 100
+    env_config: null
+system:
+  CUDA_VISIBLE_DEVICES: '0'
+micro_batch_size_per_gpu: 4
+ppo_mini_batch_size: 32
+model_path: __MODEL_PATH__
+enable_response_mask: false
+grpo_advantage_length_weight: false
+lora:
+  enabled: false
+  rank: 64
+  alpha: 64
+  target_modules: all-linear
+  local_temp_dir: lora_temp
+agent_proxy:
+  max_turn: 5
+  action_sep: '||'
+  max_actions_per_turn: 5
+  use_turn_scores: false
+  enable_think: true
+  reward_normalization:
+    grouping: state
+    method: identity
+es_manager:
+  format_penalty: -0.1
+  train:
+    env_groups: 8
+    group_size: 16
+    env_configs:
+      tags:
+      - SimpleSokoban
+      n_groups:
+      - 8
+  val:
+    env_groups: 256
+    group_size: 1
+    env_configs:
+      tags:
+      - SimpleSokoban
+      n_groups:
+      - 256
+    seed_start: 123
+  ineffective_action_penalty: 0.0
+ctx_manager:
+  generation:
+    gen_config:
+      response_length: 400
+      temperature: 1
+      top_p: 1
+      top_k: -1
+      kwargs: null

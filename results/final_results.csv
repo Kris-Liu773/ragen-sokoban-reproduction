@@ -1,0 +1,9 @@
+run,update,resumed,validation_success_count,validation_n,validation_success,test_success_count,test_n,test_success,test_reward,test_result_path
+std_seed42,200,False,54,256,0.2109375,98,512,0.19140625,1.2375000044703484,data/evaluation/heldout_original_seed42
+std_seed43,200,False,55,256,0.21484375,119,512,0.232421875,1.6812499986262992,data/evaluation/heldout_std_seed43
+std_seed44,200,False,54,256,0.2109375,120,512,0.234375,1.6992187518626451,data/evaluation/heldout_std_seed44
+random_seed42,200,False,21,256,0.08203125,39,512,0.076171875,0.2544921834487468,data/evaluation/heldout_random_seed42
+random_seed43,200,True,0,256,0.0,0,512,0.0,-0.5,data/evaluation/heldout_resumed_random_seed43
+random_seed44,200,False,23,256,0.08984375,28,512,0.0546875,0.011914052884094417,data/evaluation/heldout_random_seed44
+penalty_seed42,200,False,52,256,0.203125,112,512,0.21875,1.6638671910623088,data/evaluation/heldout_penalty_seed42
+nofilter_seed42,200,True,0,256,0.0,0,512,0.0,-0.5,data/evaluation/heldout_resumed_nofilter_seed42
