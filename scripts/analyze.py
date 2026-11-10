@@ -133,7 +133,7 @@ def analyze(root, out):
         thinking.append(dict(run=name, step=200, **diagnose([e for e in episodes if e['step']==200])))
     cases = [ep for ep in first if ep['step'] in [0,200] and ep['seed'] in [123,125]]
     instability = {}
-    for name in RESUMED:
+    for name in sorted(RESUMED):
         instability[name] = {key:dict(final=merged[name][-1].get(key),
             maximum=max(r[key] for r in merged[name] if r.get(key) is not None))
             for key in ['actor/pg_loss','actor/grad_norm','rollout/in_group_std']}
