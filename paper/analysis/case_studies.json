@@ -1,0 +1,358 @@
+[
+  {
+    "step": 0,
+    "validation_batch": 0,
+    "seed": 123,
+    "status": {
+      "truncated": false,
+      "terminated": false,
+      "num_actions": 7,
+      "rewards": [
+        -0.1,
+        -0.1,
+        -0.2,
+        -0.1,
+        -0.2
+      ],
+      "seed": 123
+    },
+    "env_id": 0,
+    "history": [
+      {
+        "state": "######\n######\n#O####\n#XP###\n#__###\n######",
+        "actions_left": 10,
+        "actions": [
+          3
+        ],
+        "reward": -0.1,
+        "info": {
+          "action_is_effective": false,
+          "action_is_valid": true,
+          "success": false
+        },
+        "llm_response": "<think>You need to push all boxes to targets. Move to the left to start the process.</think><answer>Left</answer>",
+        "llm_raw_response": "<think>You need to push all boxes to targets. Move to the left to start the process.</think> <answer>Left</answer>"
+      },
+      {
+        "state": "######\n######\n#O####\n#XP###\n#__###\n######",
+        "actions_left": 9,
+        "actions": [
+          4
+        ],
+        "reward": -0.1,
+        "info": {
+          "action_is_effective": false,
+          "action_is_valid": true,
+          "success": false
+        },
+        "llm_response": "<think>Now moving to the right is the next action.</think><answer>Right</answer>",
+        "llm_raw_response": "<think>Now moving to the right is the next action.</think><answer>Right</answer>"
+      },
+      {
+        "state": "######\n######\n#O####\n#XP###\n#__###\n######",
+        "actions_left": 8,
+        "actions": [
+          4,
+          4
+        ],
+        "reward": -0.2,
+        "info": {
+          "action_is_effective": false,
+          "action_is_valid": true,
+          "success": false
+        },
+        "llm_response": "<think>Now moving to the right again is the next action.</think><answer>Right || Right</answer>",
+        "llm_raw_response": "<think>Now moving to the right again is the next action.</think><answer>Right || Right</answer>"
+      },
+      {
+        "state": "######\n######\n#O####\n#XP###\n#__###\n######",
+        "actions_left": 6,
+        "actions": [
+          3
+        ],
+        "reward": -0.1,
+        "info": {
+          "action_is_effective": false,
+          "action_is_valid": true,
+          "success": false
+        },
+        "llm_response": "<think>Now moving to the left is the next action.</think><answer>Left</answer>",
+        "llm_raw_response": "<think>Now moving to the left is the next action.</think><answer>Left</answer>"
+      },
+      {
+        "state": "######\n######\n#O####\n#XP###\n#__###\n######",
+        "actions_left": 5,
+        "actions": [
+          3,
+          3
+        ],
+        "reward": -0.2,
+        "info": {
+          "action_is_effective": false,
+          "action_is_valid": true,
+          "success": false
+        },
+        "llm_response": "<think>Now moving to the left again is the next action.</think><answer>Left || Left</answer>",
+        "llm_raw_response": "<think>Now moving to the left again is the next action.</think><answer>Left || Left</answer>"
+      }
+    ],
+    "group_id": 0,
+    "tag": "SimpleSokoban",
+    "penalty": 0,
+    "metrics": {
+      "SimpleSokoban/success": 0.0,
+      "SimpleSokoban/num_actions": 7,
+      "SimpleSokoban/action_is_effective": 0.0,
+      "SimpleSokoban/action_is_valid": 1.0
+    }
+  },
+  {
+    "step": 0,
+    "validation_batch": 0,
+    "seed": 125,
+    "status": {
+      "truncated": true,
+      "terminated": true,
+      "num_actions": 10,
+      "rewards": [
+        -0.30000000000000004,
+        -0.30000000000000004,
+        -0.30000000000000004,
+        -0.1
+      ],
+      "seed": 125
+    },
+    "env_id": 2,
+    "history": [
+      {
+        "state": "######\n#__O_#\n#____#\n#_X__#\n#_P###\n######",
+        "actions_left": 10,
+        "actions": [
+          4,
+          4,
+          1
+        ],
+        "reward": -0.30000000000000004,
+        "info": {
+          "action_is_effective": true,
+          "action_is_valid": true,
+          "success": false
+        },
+        "llm_response": "<think>In this state, you have pushed the wall and there are two boxes on target. You need to move towards the box and push it.</think><answer>Right || Right || Up</answer>",
+        "llm_raw_response": "<think>In this state, you have pushed the wall and there are two boxes on target. You need to move towards the box and push it. </think>\n<answer>Right || Right || Up</answer>"
+      },
+      {
+        "state": "######\n#__O_#\n#_X__#\n#_P__#\n#__###\n######",
+        "actions_left": 7,
+        "actions": [
+          4,
+          4,
+          1
+        ],
+        "reward": -0.30000000000000004,
+        "info": {
+          "action_is_effective": true,
+          "action_is_valid": true,
+          "success": false
+        },
+        "llm_response": "<think>After moving to the box, you are now in the target state. You need to push the target box.</think><answer>Right || Right || Up</answer>",
+        "llm_raw_response": "<think>After moving to the box, you are now in the target state. You need to push the target box.</think><answer>Right || Right || Up</answer>"
+      },
+      {
+        "state": "######\n#__O_#\n#_X_P#\n#____#\n#__###\n######",
+        "actions_left": 4,
+        "actions": [
+          4,
+          4,
+          1
+        ],
+        "reward": -0.30000000000000004,
+        "info": {
+          "action_is_effective": true,
+          "action_is_valid": true,
+          "success": false
+        },
+        "llm_response": "<think>With the box pushed, you can now move towards the target.</think><answer>Right || Right || Up</answer>",
+        "llm_raw_response": "<think>With the box pushed, you can now move towards the target.</think><answer>Right || Right || Up</answer>"
+      },
+      {
+        "state": "######\n#__OP#\n#_X__#\n#____#\n#__###\n######",
+        "actions_left": 1,
+        "actions": [
+          4
+        ],
+        "reward": -0.1,
+        "info": {
+          "action_is_effective": false,
+          "action_is_valid": true,
+          "success": false
+        },
+        "llm_response": "<think>Since you have reached the target, you can now push the target box.</think><answer>Right || Right || Up</answer>",
+        "llm_raw_response": "<think>Since you have reached the target, you can now push the target box.</think><answer>Right || Right || Up</answer>"
+      }
+    ],
+    "group_id": 2,
+    "tag": "SimpleSokoban",
+    "penalty": 0,
+    "metrics": {
+      "SimpleSokoban/success": 0.0,
+      "SimpleSokoban/num_actions": 10,
+      "SimpleSokoban/action_is_effective": 0.75,
+      "SimpleSokoban/action_is_valid": 1.0
+    }
+  },
+  {
+    "step": 200,
+    "validation_batch": 0,
+    "seed": 123,
+    "status": {
+      "truncated": false,
+      "terminated": true,
+      "num_actions": 4,
+      "rewards": [
+        -0.2,
+        10.8
+      ],
+      "seed": 123
+    },
+    "env_id": 0,
+    "history": [
+      {
+        "state": "######\n######\n#O####\n#XP###\n#__###\n######",
+        "actions_left": 10,
+        "actions": [
+          4,
+          2
+        ],
+        "reward": -0.2,
+        "info": {
+          "action_is_effective": true,
+          "action_is_valid": true,
+          "success": false
+        },
+        "llm_response": "<think>Right || Down</think><answer>Right || Down</answer>",
+        "llm_raw_response": "<think>Right || Down</think><answer>Right || Down</answer>"
+      },
+      {
+        "state": "######\n######\n#O####\n#X_###\n#_P###\n######",
+        "actions_left": 8,
+        "actions": [
+          3,
+          1
+        ],
+        "reward": 10.8,
+        "info": {
+          "action_is_effective": true,
+          "action_is_valid": true,
+          "success": true
+        },
+        "llm_response": "<think>Left || Up</think><answer>Left || Up</answer>",
+        "llm_raw_response": "<think>Left || Up</think><answer>Left || Up</answer>"
+      }
+    ],
+    "group_id": 0,
+    "tag": "SimpleSokoban",
+    "penalty": 0,
+    "metrics": {
+      "SimpleSokoban/success": 1.0,
+      "SimpleSokoban/num_actions": 4,
+      "SimpleSokoban/action_is_effective": 1.0,
+      "SimpleSokoban/action_is_valid": 1.0
+    }
+  },
+  {
+    "step": 200,
+    "validation_batch": 0,
+    "seed": 125,
+    "status": {
+      "truncated": true,
+      "terminated": true,
+      "num_actions": 10,
+      "rewards": [
+        -0.30000000000000004,
+        -0.30000000000000004,
+        -0.30000000000000004,
+        -0.1
+      ],
+      "seed": 125
+    },
+    "env_id": 2,
+    "history": [
+      {
+        "state": "######\n#__O_#\n#____#\n#_X__#\n#_P###\n######",
+        "actions_left": 10,
+        "actions": [
+          4,
+          2,
+          3
+        ],
+        "reward": -0.30000000000000004,
+        "info": {
+          "action_is_effective": true,
+          "action_is_valid": true,
+          "success": false
+        },
+        "llm_response": "<think>Right || Down || Left</think><answer>Right || Down || Left</answer>",
+        "llm_raw_response": "<think>Right || Down || Left</think><answer>Right || Down || Left</answer>"
+      },
+      {
+        "state": "######\n#__O_#\n#____#\n#_X__#\n#P_###\n######",
+        "actions_left": 7,
+        "actions": [
+          1,
+          2,
+          3
+        ],
+        "reward": -0.30000000000000004,
+        "info": {
+          "action_is_effective": false,
+          "action_is_valid": true,
+          "success": false
+        },
+        "llm_response": "<think>Up || Down || Left</think><answer>Up || Down || Left</answer>",
+        "llm_raw_response": "<think>Up || Down || Left</think><answer>Up || Down || Left</answer>"
+      },
+      {
+        "state": "######\n#__O_#\n#____#\n#_X__#\n#P_###\n######",
+        "actions_left": 4,
+        "actions": [
+          3,
+          2,
+          4
+        ],
+        "reward": -0.30000000000000004,
+        "info": {
+          "action_is_effective": true,
+          "action_is_valid": true,
+          "success": false
+        },
+        "llm_response": "<think>Left || Down || Right</think><answer>Left || Down || Right</answer>",
+        "llm_raw_response": "<think>Left || Down || Right</think><answer>Left || Down || Right</answer>"
+      },
+      {
+        "state": "######\n#__O_#\n#____#\n#_X__#\n#_P###\n######",
+        "actions_left": 1,
+        "actions": [
+          1
+        ],
+        "reward": -0.1,
+        "info": {
+          "action_is_effective": true,
+          "action_is_valid": true,
+          "success": false
+        },
+        "llm_response": "<think>Up || Right || Down</think><answer>Up || Right || Down</answer>",
+        "llm_raw_response": "<think>Up || Right || Down</think><answer>Up || Right || Down</answer>"
+      }
+    ],
+    "group_id": 2,
+    "tag": "SimpleSokoban",
+    "penalty": 0,
+    "metrics": {
+      "SimpleSokoban/success": 0.0,
+      "SimpleSokoban/num_actions": 10,
+      "SimpleSokoban/action_is_effective": 0.75,
+      "SimpleSokoban/action_is_valid": 1.0
+    }
+  }
+]

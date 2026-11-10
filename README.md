@@ -6,7 +6,15 @@ A small, auditable reproduction and extension of **the first RAGEN paper (StarPO
 
 This is a limited single-environment study, **not a full reproduction of the paper or RAGEN-2**. The standardized launcher and installation recipe were prepared after the experiments; their configuration logic and CPU analysis have been checked, but they have not been rerun end-to-end on a fresh GPU environment.
 
-[Original RAGEN repository](https://github.com/RAGEN-AI/RAGEN) · [Paper](https://arxiv.org/abs/2504.20073) · [Training instructions](docs/reproduction.md) · [Experiment details](docs/experiments.md) · [Case studies](docs/case_studies.md)
+[Original RAGEN repository](https://github.com/RAGEN-AI/RAGEN) · [Original paper](https://arxiv.org/abs/2504.20073) · [Training instructions](docs/reproduction.md) · [Experiment details](docs/experiments.md) · [Case studies](docs/case_studies.md)
+
+## Research manuscript
+
+**Task Success and Written Reasoning in Sokoban Reinforcement Learning** presents the eight-model comparison, failure diagnostics, written-reasoning analysis, and implementation details.
+
+[Read the PDF](paper/Sokoban_RL_Paper.pdf) · [Editable Word version](paper/Sokoban_RL_Paper.docx) · [LaTeX project ZIP](paper/Sokoban_RL_Paper_LaTeX.zip) · [Sources and build instructions](paper/README.md)
+
+The manuscript adds an exact initial-board audit: the 512 test seeds generate 486 distinct grids, with 22 test episodes matching a validation board. Excluding those episodes preserves the main method ordering. This is a post hoc analysis of existing trajectories; no additional GPU training was performed.
 
 ## Main results
 
@@ -76,6 +84,7 @@ The smoke test starts a separate short run; the full training command starts fre
 | `results/` | Recomputed tables, curves, diagnostic evidence and selected cases |
 | `provenance/` | Source/data checksums, upstream patch and recorded environment versions |
 | `docs/` | Reproduction instructions, experiment definitions, case interpretation and limitations |
+| `paper/` | Research manuscript in PDF, Word and LaTeX, figure sources, and the additional board-overlap audit |
 
 ![Training loss and validation reward](results/first_run_curves.png)
 

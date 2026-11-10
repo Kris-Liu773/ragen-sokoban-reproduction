@@ -1,0 +1,34 @@
+{
+  "title": "Task Success and Written Reasoning in Sokoban Reinforcement Learning",
+  "version": "2026-11-09",
+  "pdf_pages": 8,
+  "verified_word_render_pages": 10,
+  "figures": 5,
+  "tables": 4,
+  "references": 5,
+  "evidence_commit": "6f060d5e5942260a6f850fc6b8d22cbdba91c3a2",
+  "checks": {
+    "raw_log_hash_verification": true,
+    "numeric_tables_checked": true,
+    "standalone_latex_compilation": true,
+    "all_pdf_pages_visually_reviewed": true,
+    "all_word_pages_visually_reviewed": true
+  },
+  "artifacts": [
+    {
+      "file": "Sokoban_RL_Paper.pdf",
+      "bytes": 243249,
+      "sha256": "c1583d337d5ed081c5b0b4ff19f4d777ebc55fabff1a9db9c3a9079269b73563"
+    },
+    {
+      "file": "Sokoban_RL_Paper.docx",
+      "bytes": 619322,
+      "sha256": "c03b523cd9b0268d7beb9dc9f8fba9714ba8eb5dd40b80ae27864d9472583117"
+    },
+    {
+      "file": "Sokoban_RL_Paper_LaTeX.zip",
+      "bytes": 89591,
+      "sha256": "c90c08b3c90d35a04070001f2725124ee661df176f85705e7d73355ceb456d22"
+    }
+  ]
+}

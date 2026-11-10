@@ -1,0 +1,2 @@
+matplotlib==3.10.9
+python-docx==1.2.0
