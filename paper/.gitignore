@@ -1,9 +1,0 @@
-__pycache__/
-latex/*.aux
-latex/*.bbl
-latex/*.blg
-latex/*.log
-latex/*.out
-latex/main.pdf
-latex/missfont.log
-latex/mfput.log

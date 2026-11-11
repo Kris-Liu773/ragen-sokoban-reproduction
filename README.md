@@ -1,6 +1,6 @@
 # RAGEN Sokoban Reproduction
 
-A small, auditable reproduction and extension of **the first RAGEN paper (StarPO / StarPO-S)** using Qwen2.5-0.5B-Instruct on one H100. We train an LLM agent to solve text-based Sokoban puzzles, compare rollout-selection strategies, test a simple action penalty, and inspect the text inside its `<think>` tags.
+A personal research project maintained by **Haotian Liu**, reproducing and extending **the first RAGEN paper (StarPO / StarPO-S)** with Qwen2.5-0.5B-Instruct on one H100. The project trains an LLM agent to solve text-based Sokoban puzzles, compares rollout-selection strategies, tests a simple action penalty, and inspects the text inside its `<think>` tags.
 
 **All eight models reached update 200.** This repository contains the experiment code, full recorded configurations, compressed raw metrics and trajectories, analysis scripts, and figures. No GPU is needed to reproduce the published tables and plots. Training new models requires a Linux CUDA machine.
 
@@ -12,7 +12,7 @@ This is a limited single-environment study, **not a full reproduction of the pap
 
 **Task Success and Written Reasoning in Sokoban Reinforcement Learning** presents the eight-model comparison, failure diagnostics, written-reasoning analysis, and implementation details.
 
-[Read the PDF](paper/Sokoban_RL_Paper.pdf) · [Editable Word version](paper/Sokoban_RL_Paper.docx) · [LaTeX project ZIP](paper/Sokoban_RL_Paper_LaTeX.zip) · [Sources and build instructions](paper/README.md)
+[Read the PDF](paper/Sokoban_RL_Paper.pdf). The manuscript is published here in PDF format.
 
 The manuscript adds an exact initial-board audit: the 512 test seeds generate 486 distinct grids, with 22 test episodes matching a validation board. Excluding those episodes preserves the main method ordering. This is a post hoc analysis of existing trajectories; no additional GPU training was performed.
 
@@ -84,10 +84,10 @@ The smoke test starts a separate short run; the full training command starts fre
 | `results/` | Recomputed tables, curves, diagnostic evidence and selected cases |
 | `provenance/` | Source/data checksums, upstream patch and recorded environment versions |
 | `docs/` | Reproduction instructions, experiment definitions, case interpretation and limitations |
-| `paper/` | Research manuscript in PDF, Word and LaTeX, figure sources, and the additional board-overlap audit |
+| `paper/` | Research manuscript PDF, including the additional board-overlap audit |
 
 ![Training loss and validation reward](results/first_run_curves.png)
 
-## Authors and acknowledgments
+## Maintainer and upstream credit
 
-Yihao Tao, Bowu, Jintao Wang, Runhu, and Haotian Liu. Built on RAGEN and veRL; credit for StarPO and StarPO-S belongs to the original authors. See [third-party notices](THIRD_PARTY_NOTICES.md) and the [MIT license for our additions](LICENSE).
+Maintained by Haotian Liu. Built on RAGEN and veRL; credit for StarPO and StarPO-S belongs to the original authors. See [third-party notices](THIRD_PARTY_NOTICES.md) and the [MIT license for project-specific additions](LICENSE).
